@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DNC_DI.data.Repositories;
 using DNC_DI.logic.Handler.Customer;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,10 @@ namespace DNC_DI.web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddMediatR(typeof(Startup));
+
+            // DI Setup
+
             var assemblies = new List<Assembly> {
                 Assembly.Load("DNC-DI.data"),
                 Assembly.Load("DNC-DI.logic"),
@@ -45,6 +50,7 @@ namespace DNC_DI.web
                 .AsPublicImplementedInterfaces();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

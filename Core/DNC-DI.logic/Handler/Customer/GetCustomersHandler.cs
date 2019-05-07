@@ -1,14 +1,13 @@
 ﻿using DNC_DI.data.Repositories;
+using MediatR;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DNC_DI.logic.Handler.Customer
 {
 
-    public interface IGetCustomersHandler
-    {
-        List<shared.Models.Customer> GetCustomers();
-    }
-    public class GetCustomersHandler : IGetCustomersHandler
+    public class GetCustomersHandler : IRequestHandler<GetCustomersRequest, GetCustomersResponse>
     {
 
         private ICustomerRepository _repo;
@@ -18,9 +17,21 @@ namespace DNC_DI.logic.Handler.Customer
             _repo = repo;
         }
 
-        public List<shared.Models.Customer> GetCustomers()
+        public async Task<GetCustomersResponse> Handle(GetCustomersRequest request, CancellationToken cancellationToken)
         {
-            return _repo.GetCustomers();
+            var customers = await _repo.GetCustomers();
+            return new GetCustomersResponse {
+                Customers = customers
+            };
         }
+    }
+
+    public class GetCustomersRequest : IRequest<GetCustomersResponse>
+    {
+    }
+
+    public class GetCustomersResponse
+    {
+        public List<shared.Models.Customer> Customers { get; set; }
     }
 }

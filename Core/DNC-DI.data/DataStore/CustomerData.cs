@@ -17,7 +17,7 @@ namespace DNC_DI.data.DataStore
             },
             new Customer
             {
-                ID = 1,
+                ID = 2,
                 Name = "JOHN SAMUELS",
                 Address = "123 E MAIN"
             },

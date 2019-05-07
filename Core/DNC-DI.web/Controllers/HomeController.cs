@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DNC_DI.logic.Handler.Customer;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DNC_DI.web.Controllers
@@ -11,18 +12,16 @@ namespace DNC_DI.web.Controllers
     public class HomeController : Controller
     {
 
-        IGetCustomersHandler _getCustomersHandler;
-        ICreateCustomerHandler _createCustomerHandler;
+        private readonly IMediator _mediatr;
 
-        public HomeController(IGetCustomersHandler getHandler, ICreateCustomerHandler createHandler)
+        public HomeController(IMediator mediatr)
         {
-            _getCustomersHandler = getHandler;
-            _createCustomerHandler = createHandler;
+            _mediatr = mediatr;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_getCustomersHandler.GetCustomers());
+            return View();
         }
 
         public IActionResult Privacy()

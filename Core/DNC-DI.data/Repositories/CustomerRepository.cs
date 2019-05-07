@@ -2,31 +2,42 @@
 using DNC_DI.shared.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DNC_DI.data.Repositories
 {
     public interface ICustomerRepository
     {
-        List<Customer> GetCustomers();
-        Customer GetCustomerById(int id);
-        void CreateCustomer(Customer customer);
+        Task<List<Customer>> GetCustomers();
+        Task<Customer> GetCustomerById(int id);
+        Task CreateCustomer(Customer customer);
     }
     public class CustomerRepository : ICustomerRepository
     {
 
-        public void CreateCustomer(Customer customer)
+        public async Task CreateCustomer(Customer customer)
         {
-            CustomersData.Customers.Add(customer);
+            await Task.Run(() =>
+            {
+                CustomersData.Customers.Add(customer);
+            });
+            
         }
 
-        public Customer GetCustomerById(int id)
+        public async Task<Customer> GetCustomerById(int id)
         {
-            return CustomersData.Customers.SingleOrDefault(x => x.ID == id);
+            return await Task.Run(() =>
+            {
+                return CustomersData.Customers.SingleOrDefault(x => x.ID == id);
+            });
         }
 
-        public List<Customer> GetCustomers()
+        public async Task<List<Customer>> GetCustomers()
         {
-            return CustomersData.Customers;
+            return await Task.Run(() =>
+            {
+                return CustomersData.Customers;
+            });   
         }
     }
 }
