@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DNC_DI.data.Repositories;
 using DNC_DI.logic.Handler.Customer;
+using DNC_DI.web.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NetCore.AutoRegisterDi;
+using StructureMap;
 
 namespace DNC_DI.web
 {
@@ -26,7 +27,7 @@ namespace DNC_DI.web
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -39,6 +40,7 @@ namespace DNC_DI.web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            return IocContainer.ConfigureIOC(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,5 +65,6 @@ namespace DNC_DI.web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
     }
 }
