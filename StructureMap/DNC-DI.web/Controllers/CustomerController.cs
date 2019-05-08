@@ -29,8 +29,7 @@ namespace DNC_DI.web.Controllers
         // GET: Customer/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var response = await _mediatr.Send(new GetCustomerByIDRequest
-            {
+            var response = await _mediatr.Send(new GetCustomerByIDRequest {
                 ID = id
             });
 
@@ -61,9 +60,13 @@ namespace DNC_DI.web.Controllers
         }
 
         // GET: Customer/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var response = await _mediatr.Send(new GetCustomerByIDRequest {
+                ID = id
+            });
+
+            return View(response.Customer);
         }
 
         // POST: Customer/Edit/5
