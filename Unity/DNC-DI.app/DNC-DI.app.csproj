@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>DNC_DI.app</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DNC-DI.data\DNC-DI.data.csproj" />
+    <ProjectReference Include="..\..\DNC-DI.logic\DNC-DI.logic.csproj" />
+    <ProjectReference Include="..\..\DNC-DI.shared\DNC-DI.shared.csproj" />
+  </ItemGroup>
+
+</Project>
