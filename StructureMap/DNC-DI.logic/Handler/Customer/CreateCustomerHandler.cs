@@ -20,7 +20,7 @@ namespace DNC_DI.logic.Handler.Customer
 
         public void Create(shared.Models.Customer customer)
         {
-            _repo.CreateCustomer(customer);
+            _repo.Create(customer);
         }
 
     }

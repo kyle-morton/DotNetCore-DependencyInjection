@@ -12,14 +12,7 @@ namespace DNC_DI.web.Controllers
     public class HomeController : Controller
     {
 
-        private readonly IMediator _mediatr;
-
-        public HomeController(IMediator mediatr)
-        {
-            _mediatr = mediatr;
-        }
-
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }

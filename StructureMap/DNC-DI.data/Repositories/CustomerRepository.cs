@@ -8,14 +8,15 @@ namespace DNC_DI.data.Repositories
 {
     public interface ICustomerRepository
     {
-        Task<List<Customer>> GetCustomers();
-        Task<Customer> GetCustomerById(int id);
-        Task CreateCustomer(Customer customer);
+        Task<List<Customer>> Get();
+        Task<Customer> GetByID(int id);
+        Task Create(Customer customer);
+        Task Edit(Customer customer);
     }
     public class CustomerRepository : ICustomerRepository
     {
 
-        public async Task CreateCustomer(Customer customer)
+        public async Task Create(Customer customer)
         {
             await Task.Run(() =>
             {
@@ -24,7 +25,7 @@ namespace DNC_DI.data.Repositories
             
         }
 
-        public async Task<Customer> GetCustomerById(int id)
+        public async Task<Customer> GetByID(int id)
         {
             return await Task.Run(() =>
             {
@@ -32,12 +33,24 @@ namespace DNC_DI.data.Repositories
             });
         }
 
-        public async Task<List<Customer>> GetCustomers()
+        public async Task<List<Customer>> Get()
         {
             return await Task.Run(() =>
             {
                 return CustomersData.Customers;
             });   
+        }
+
+        public async Task Edit(Customer customer)
+        {
+            await Task.Run(() =>
+            {
+                var origCustomer = CustomersData.Customers.Single(c => c.ID == customer.ID);
+
+                origCustomer.Name = customer.Name;
+                origCustomer.Address = customer.Address;
+
+            });
         }
     }
 }

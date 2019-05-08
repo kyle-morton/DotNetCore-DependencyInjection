@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DNC_DI.logic.Handler.Customer;
+using DNC_DI.shared.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -72,12 +73,13 @@ namespace DNC_DI.web.Controllers
         // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(Customer model)
         {
             try
             {
-                // TODO: Add update logic here
-
+                await _mediatr.Send(new EditCustomerRequest {
+                    customer = model
+                });
                 return RedirectToAction(nameof(Index));
             }
             catch

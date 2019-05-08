@@ -17,7 +17,7 @@ namespace DNC_DI.logic.Handler.Customer
 
         public async Task<GetCustomerByIDResponse> Handle(GetCustomerByIDRequest request, CancellationToken cancellationToken)
         {
-            var customer = await _repo.GetCustomerById(request.ID);
+            var customer = await _repo.GetByID(request.ID);
             return new GetCustomerByIDResponse {
                 Customer = customer
             };
